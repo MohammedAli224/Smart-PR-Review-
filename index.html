@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart PR Review Copilot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <!-- Left panel: input -->
+    <section class="panel panel--left" aria-label="Diff input">
+      <header class="panel__header">
+        <h1 class="panel__title">Smart PR Review Copilot</h1>
+        <p class="panel__subtitle">Paste a Git diff to get an instant risk assessment.</p>
+      </header>
+
+      <label class="visually-hidden" for="diffInput">Git diff</label>
+      <textarea
+        id="diffInput"
+        class="diff-input"
+        placeholder="Paste your Git diff here, e.g.&#10;&#10;diff --git a/src/auth/login.js b/src/auth/login.js&#10;index 6a1c..3b2d 100644&#10;--- a/src/auth/login.js&#10;+++ b/src/auth/login.js&#10;@@ -10,6 +10,8 @@&#10;+ const token = localStorage.getItem('token');"
+        spellcheck="false"
+      ></textarea>
+
+      <div class="actions">
+        <button id="assessBtn" class="btn btn--primary" type="button">Assess Risk</button>
+        <button id="clearBtn" class="btn btn--secondary" type="button">Clear</button>
+      </div>
+
+      <div class="samples">
+        <span class="samples__label">Load sample:</span>
+        <button id="loadLowBtn" class="btn btn--ghost" type="button">Low</button>
+        <button id="loadMedBtn" class="btn btn--ghost" type="button">Medium</button>
+        <button id="loadHighBtn" class="btn btn--ghost" type="button">High</button>
+      </div>
+    </section>
+
+    <!-- Right panel: results -->
+    <section class="panel panel--right" aria-label="Assessment results">
+      <!-- Empty state -->
+      <div id="emptyState" class="state state--empty" aria-live="polite">
+        <h2 class="state__title">No assessment yet</h2>
+        <p class="state__text">Paste a diff and click <strong>Assess Risk</strong> to view results.</p>
+      </div>
+
+      <!-- Loading state -->
+      <div id="loadingState" class="state state--loading" aria-live="polite" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="state__text">Analyzing diff…</p>
+      </div>
+
+      <!-- Error area -->
+      <div id="errorArea" class="error" role="alert" hidden></div>
+
+      <!-- Results -->
+      <div id="results" class="results" hidden>
+        <div class="risk-card">
+          <span class="risk-card__label">Risk Score</span>
+          <span id="riskScoreValue" class="risk-card__value"></span>
+        </div>
+
+        <h2 class="results__heading">Impacted Areas</h2>
+        <ul id="impactedAreasList" class="impacted-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

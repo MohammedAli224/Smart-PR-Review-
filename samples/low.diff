@@ -1,0 +1,9 @@
+diff --git a/src/components/Button.css b/src/components/Button.css
+index 0a2f1c..9b4e7d 100644
+--- a/src/components/Button.css
++++ b/src/components/Button.css
+@@ -12,3 +12,3 @@
+   padding: 0.5rem 1rem;
+-  border-radius: 4px;
++  border-radius: 6px;
+   font-size: 0.875rem;

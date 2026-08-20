@@ -1,0 +1,16 @@
+diff --git a/src/controllers/orderController.js b/src/controllers/orderController.js
+index 3c1a90..77e2b8 100644
+--- a/src/controllers/orderController.js
++++ b/src/controllers/orderController.js
+@@ -24,6 +24,9 @@ async function createOrder(req, res) {
+   const { userId, items, couponCode } = req.body;
+ 
+   const total = calculateTotal(items);
++
++  if (couponCode) {
++    total -= await fetchDiscount(couponCode);
++  }
++
+   const order = await db.orders.create({ userId, total });
+   res.status(201).json(order);
+ }

@@ -1,0 +1,15 @@
+diff --git a/db/migrations/20240115_drop_legacy_column.sql b/db/migrations/20240115_drop_legacy_column.sql
+new file mode 100644
+index 000000..1a2b3c
+--- /dev/null
++++ b/db/migrations/20240115_drop_legacy_column.sql
+@@ -0,0 +1,8 @@
++ALTER TABLE users
++  DROP COLUMN legacy_password_hash;
++
++ALTER TABLE orders
++  DROP COLUMN shipping_address;
++
++UPDATE users
++  SET status = 'archived'
++  WHERE status = 'disabled';
